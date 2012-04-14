@@ -1,0 +1,40 @@
+<tal:block
+  condition="view/available"
+  i18n:domain="sll.portlet"
+  >
+
+  <dl
+    class="portlet portletSLLMap"
+    >
+
+    <dd class="portletItem odd">
+
+      <script tal:replace="structure view/script" />
+
+      <map
+        name="map_imagemap"
+        id="map_imagemap"
+        >
+        <area
+          shape="poly"
+          tal:repeat="item view/area_items"
+          tal:attributes="
+            coords item/coords;
+            href item/url;
+            id item/id;
+          "
+          />
+      </map>
+
+      <div id="map_container">
+          <div id="map_background_image" class="map_absolute" style="display: none;"></div>
+          <div id="map_hilight_image" class="map_absolute" style="display: none;"></div>
+          <img name="map_kartta_image" src="kartta_kuvat/transparent.gif" usemap="#map_imagemap" id="map_kartta_image" class="map_preload map_absolute"  style="display: none;" alt="" />
+          <div id="map_overlay" class="map_absolute"></div>
+      </div>
+
+    </dd>
+
+  </dl>
+
+</tal:block>

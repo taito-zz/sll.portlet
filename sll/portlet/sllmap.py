@@ -1,20 +1,12 @@
-from Acquisition import aq_inner
-from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.PythonScripts.standard import url_quote_plus
-from StringIO import StringIO
 from plone.app.portlets import PloneMessageFactory as _
-from plone.app.portlets import cache
 from plone.app.portlets.portlets import base
-from plone.memoize import ram
-from plone.memoize.compress import xhtml_compress
 from plone.portlets.interfaces import IPortletDataProvider
-from time import localtime
+from string import Template
 from zope.component import getMultiAdapter
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
+
 
 PLMF = MessageFactory('plonelocales')
 
@@ -108,66 +100,92 @@ class Renderer(base.Renderer):
         return True
 
     def script(self):
-        return """<script language="javascript" type="text/javascript">
-        jQuery.noConflict();
-        jQuery(document).ready(function($) {
-            var map_overlay = $("#map_overlay");
+        template = """<script language="javascript" type="text/javascript">
+    jQuery.noConflict();
+    jQuery(document).ready(
+        function(jq) {
+            var map_overlay = jq("#map_overlay");
             map_overlay.hide();
             map_overlay.addClass("loading");
             map_overlay.fadeIn();
 
             var bgmap = {};
-            $("#map_imagemap > area").each(function() {
-                var id = $(this).attr("id");
-                var offset = parseInt($(this).attr("id").split("_")[2], 10);
-                offset = (15-offset)*141;
-                var bgpos = String(offset) +"px 0px";
-                bgmap[id] = bgpos;
-            });
-            
-            var map_kartta_image = $("#map_kartta_image");
-            var map_hilight_image = $("#map_hilight_image");
-            
-            var preload = new Array('spinner.gif', 'kartta_kuvat/transparent.gif', 'kartta_kuvat/kartta.gif');
+            jq("#map_imagemap > area").each(
+                function() {
+                    var id = jq(this).attr("id");
+                    var offset = parseInt(jq(this).attr("id").split("_")[2], 10);
+                    offset = (15-offset)*141;
+                    var bgpos = String(offset) +"px 0px";
+                    bgmap[id] = bgpos;
+                }
+            );
+
+            var map_kartta_image = jq("#map_kartta_image");
+            var map_hilight_image = jq("#map_hilight_image");
+
+            var preload = new Array('$spinner_gif', '$transparent_gif', '$kartta_gif');
             var img = document.createElement('img');
-            $(img).bind('load', function() {
-                if(preload[0]) {
-                    this.src = preload.shift();
-                }  else {
+            jq(img).bind(
+                'load', function() {
+                    if(preload[0]) {
+                        this.src = preload.shift();
+                    }  else {
                     /* all images have been loaded */
-                    $("#map_imagemap area").each(function() {
-                        this.onmouseover = function() {
-                            map_hilight_image.css("background-position", bgmap[$(this).attr("id")]);
-                            map_hilight_image.fadeIn("fast");
-                        }
+                        jq("#map_imagemap area").each(function() {
+                            this.onmouseover = function() {
+                                map_hilight_image.css("background-position", bgmap[jq(this).attr("id")]);
+                                map_hilight_image.fadeIn("fast");
+                            }
                         this.onmouseout = function() {
                             map_hilight_image.hide();
                         }
-                    });
-                    map_kartta_image.show();
-                    map_overlay.fadeOut("fast", function() {
-                        $(this).removeClass("loading");
-                        $("#map_background_image").fadeIn("fast");
-                        
-                    });
-                    $("#map_background_image").css("background-image", "url(kartta_kuvat/kartta.gif)");
-                    map_hilight_image.css("background-image", "url(kartta_kuvat/kartta.gif)");
-                }
-            }).trigger('load');
-            
-        });
-      </script>"""
+                    }
+                );
+                map_kartta_image.show();
+                map_overlay.fadeOut(
+                    "fast", function() {
+                        jq(this).removeClass("loading");
+                        jq("#map_background_image").fadeIn("fast");
+                    }
+                );
+                jq("#map_background_image").css("background-image", "url($kartta_gif)");
+                map_hilight_image.css("background-image", "url($kartta_gif)");
+            }
+        }
+    ).trigger('load');
+}
+);
+</script>"""
+        s = Template(template)
+        items = {
+            'kartta_gif': '{0}/++resource++sll.portlet.images/kartta.gif'.format(self.portal_url),
+            'spinner_gif': '{0}/spinner.gif'.format(self.portal_url),
+            'transparent_gif': self.transparent_gif,
+        }
+        return s.substitute(items)
+
+    @property
+    def portal(self):
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        return portal_state.portal()
+
+    @property
+    def portal_url(self):
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        return portal_state.portal_url()
 
     def area_items(self):
-        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
-        portal_url = portal_state.portal_url()
         return [
             {
                 'id': 'map_area_{0}'.format(self.areas.index(item)),
                 'coords': item['coords'],
-                'url': '{0}/{1}'.format(portal_url, item['area']),
+                'url': '{0}/{1}'.format(self.portal_url, item['area']),
             } for item in self.areas
         ]
+
+    @property
+    def transparent_gif(self):
+        return '{0}/++resource++sll.portlet.images/transparent.gif'.format(self.portal_url)
 
 
 class AddForm(base.NullAddForm):

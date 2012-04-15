@@ -1,0 +1,26 @@
+/* Etusivun kartan tyylit */
+#map_overlay.loading {
+    background: transparent url(++resource++sll.portlet.images/spinner.gif) no-repeat center center;
+}
+.map_absolute {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+        width:141px;
+        height:200px;
+}
+#map_container {
+    position: relative;
+        width:141px;
+        height:200px;
+        background: #eff1ec;
+        padding:0px;
+        margin:0px;
+}
+#map_container img {
+    border: 0px;
+}
+
+dl.portletSLLMap {
+    background-color: #EFF1EC;
+}

@@ -29,7 +29,16 @@
       <div id="map_container">
           <div id="map_background_image" class="map_absolute" style="display: none;"></div>
           <div id="map_hilight_image" class="map_absolute" style="display: none;"></div>
-          <img name="map_kartta_image" src="kartta_kuvat/transparent.gif" usemap="#map_imagemap" id="map_kartta_image" class="map_preload map_absolute"  style="display: none;" alt="" />
+          <img
+            alt=""
+            class="map_preload map_absolute"
+            id="map_kartta_image"
+            name="map_kartta_image"
+            src="kartta_kuvat/transparent.gif"
+            style="display: none;"
+            tal:attributes="src view/transparent_gif"
+            usemap="#map_imagemap"
+            />
           <div id="map_overlay" class="map_absolute"></div>
       </div>
 

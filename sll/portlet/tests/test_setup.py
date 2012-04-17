@@ -17,6 +17,12 @@ class TestCase(IntegrationTestCase):
         from plone.browserlayer import utils
         self.failUnless(ISllPortletLayer in utils.registered_layers())
 
+    def test_cssregistry(self):
+        portal_css = getToolByName(self.portal, 'portal_css')
+        self.assertTrue(
+            '++resource++sll.portlet.stylesheets/portlet.css' in portal_css.getResourceIds()
+        )
+
     def test_uninstall__package(self):
         installer = getToolByName(self.portal, 'portal_quickinstaller')
         installer.uninstallProducts(['sll.portlet'])
@@ -28,3 +34,11 @@ class TestCase(IntegrationTestCase):
         from sll.portlet.browser.interfaces import ISllPortletLayer
         from plone.browserlayer import utils
         self.failIf(ISllPortletLayer in utils.registered_layers())
+
+    def test_uninstall__cssregistry(self):
+        installer = getToolByName(self.portal, 'portal_quickinstaller')
+        installer.uninstallProducts(['sll.portlet'])
+        portal_css = getToolByName(self.portal, 'portal_css')
+        self.assertFalse(
+            '++resource++sll.portlet.stylesheets/portlet.css' in portal_css.getResourceIds()
+        )

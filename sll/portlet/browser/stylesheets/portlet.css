@@ -13,14 +13,9 @@
     position: relative;
         width:141px;
         height:200px;
-        background: #eff1ec;
         padding:0px;
         margin:0px;
 }
 #map_container img {
     border: 0px;
-}
-
-dl.portletSLLMap {
-    background-color: #EFF1EC;
 }

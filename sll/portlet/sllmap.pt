@@ -22,6 +22,7 @@
             coords item/coords;
             href item/url;
             id item/id;
+            title item/title;
           "
           />
       </map>

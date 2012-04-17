@@ -123,7 +123,7 @@ class Renderer(base.Renderer):
             var map_kartta_image = jq("#map_kartta_image");
             var map_hilight_image = jq("#map_hilight_image");
 
-            var preload = new Array('$spinner_gif', '$transparent_gif', '$kartta_gif');
+            var preload = new Array('$spinner_gif', '$transparent_gif', '$kartta_img');
             var img = document.createElement('img');
             jq(img).bind(
                 'load', function() {
@@ -148,8 +148,8 @@ class Renderer(base.Renderer):
                         jq("#map_background_image").fadeIn("fast");
                     }
                 );
-                jq("#map_background_image").css("background-image", "url($kartta_gif)");
-                map_hilight_image.css("background-image", "url($kartta_gif)");
+                jq("#map_background_image").css("background-image", "url($kartta_img)");
+                map_hilight_image.css("background-image", "url($kartta_img)");
             }
         }
     ).trigger('load');
@@ -158,7 +158,7 @@ class Renderer(base.Renderer):
 </script>"""
         s = Template(template)
         items = {
-            'kartta_gif': '{0}/++resource++sll.portlet.images/kartta.gif'.format(self.portal_url),
+            'kartta_img': '{0}/++resource++sll.portlet.images/kartta.png'.format(self.portal_url),
             'spinner_gif': '{0}/spinner.gif'.format(self.portal_url),
             'transparent_gif': self.transparent_gif,
         }
@@ -180,6 +180,7 @@ class Renderer(base.Renderer):
                 'id': 'map_area_{0}'.format(self.areas.index(item)),
                 'coords': item['coords'],
                 'url': '{0}/{1}'.format(self.portal_url, item['area']),
+                'title': self.portal[item['area']].Title(),
             } for item in self.areas
         ]
 

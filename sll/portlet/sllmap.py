@@ -1,25 +1,40 @@
+# from plone.app.portlets import PloneMessageFactory as _
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.portlets import PloneMessageFactory as _
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
+from sll.portlet import _
 from string import Template
 from zope.component import getMultiAdapter
+from zope.formlib import form
 from zope.i18nmessageid import MessageFactory
 from zope.interface import implements
+from zope.schema import TextLine
 
-
-PLMF = MessageFactory('plonelocales')
+# PLMF = MessageFactory('plonelocales')
 
 
 class ISLLMapPortlet(IPortletDataProvider):
     """A portlet displaying a SLL map.
     """
 
+    name = TextLine(
+        title=_(u"Name of Portlet"),
+        default=u"",
+        required=False,
+    )
+
 
 class Assignment(base.Assignment):
     implements(ISLLMapPortlet)
 
-    title = _(u'SLL Map')
+    # title = _(u'SLL Map')
+    name = u""
+
+    def __init__(self, name=u""):
+        self.name = name
+
+    def title(self):
+        return self.name or _(u'SLL Map')
 
 
 class Renderer(base.Renderer):
@@ -188,8 +203,24 @@ class Renderer(base.Renderer):
     def transparent_gif(self):
         return '{0}/++resource++sll.portlet.images/transparent.gif'.format(self.portal_url)
 
+    def title(self):
+        return self.data.name or self.data.title
 
-class AddForm(base.NullAddForm):
 
-    def create(self):
-        return Assignment()
+class AddForm(base.AddForm):
+
+    form_fields = form.Fields(ISLLMapPortlet)
+    label = _(u"Add SLL Map Portlet")
+    description = _(u"This portlet display a SLL map.")
+
+    def create(self, data):
+        return Assignment(name=data.get('name', u""))
+
+
+class EditForm(base.EditForm):
+    form_fields = form.Fields(ISLLMapPortlet)
+    label = _(u"Edit SLL Map Portlet")
+    description = _(u"This portlet display a SLL map.")
+
+    # def create(self, data):
+    #     return Assignment(name=data.get('name', u""))

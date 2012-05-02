@@ -23,6 +23,7 @@
   <plone:portlet
     addview=".sllmap.AddForm"
     assignment=".sllmap.Assignment"
+    editview=".sllmap.EditForm"
     interface=".sllmap.ISLLMapPortlet"
     name="portlet.SLLMap"
     renderer=".sllmap.Renderer"

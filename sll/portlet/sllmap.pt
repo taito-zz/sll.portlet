@@ -7,6 +7,16 @@
     class="portlet portletSLLMap"
     >
 
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span
+           class="tile"
+           tal:content="view/title">
+           SLL Map
+        </span>
+        <span class="portletTopRight"></span>
+    </dt>
+
     <dd class="portletItem odd">
 
       <script tal:replace="structure view/script" />

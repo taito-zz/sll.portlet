@@ -19,7 +19,7 @@
 
     <dd class="portletItem odd">
 
-      <tal:block tal:condition="not view/is_ie">
+      <tal:block tal:condition="not: view/is_ie">
         <script tal:replace="structure view/script" />
 
         <map
@@ -55,7 +55,7 @@
         </div>
       </tal:block>
 
-      <tal:block tal:condition="not view/is_ie">
+      <tal:block tal:condition="view/is_ie">
         <ul>
           <li tal:repeat="item view/area_items">
             <a

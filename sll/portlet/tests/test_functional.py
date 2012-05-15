@@ -4,6 +4,7 @@ from plone.app.testing import setRoles
 from plone.testing import layered
 from sll.portlet.tests.base import FUNCTIONAL_TESTING
 from zope.testing import renormalizing
+from sll.portlet.config import AREAS
 
 import doctest
 import manuel.codeblock
@@ -39,6 +40,17 @@ def setUp(self):
     portal.error_log._ignored_exceptions = ()
 
     setRoles(portal, TEST_USER_ID, ['Manager'])
+
+    for area in AREAS[1:]:
+        oid = area['area']
+        item = portal[
+            portal.invokeFactory(
+                'Folder',
+                oid,
+                title=oid.capitalize(),
+            )
+        ]
+        item.reindexObject()
 
     transaction.commit()
 

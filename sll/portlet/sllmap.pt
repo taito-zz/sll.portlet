@@ -19,39 +19,55 @@
 
     <dd class="portletItem odd">
 
-      <script tal:replace="structure view/script" />
+      <tal:block tal:condition="not view/is_ie">
+        <script tal:replace="structure view/script" />
 
-      <map
-        name="map_imagemap"
-        id="map_imagemap"
-        >
-        <area
-          shape="poly"
-          tal:repeat="item view/area_items"
-          tal:attributes="
-            coords item/coords;
-            href item/url;
-            id item/id;
-            title item/title;
-          "
-          />
-      </map>
-
-      <div id="map_container">
-          <div id="map_background_image" class="map_absolute" style="display: none;"></div>
-          <div id="map_hilight_image" class="map_absolute" style="display: none;"></div>
-          <img
-            alt=""
-            class="map_preload map_absolute"
-            id="map_kartta_image"
-            name="map_kartta_image"
-            src="kartta_kuvat/transparent.gif"
-            style="display: none;"
-            tal:attributes="src view/transparent_gif"
-            usemap="#map_imagemap"
+        <map
+          name="map_imagemap"
+          id="map_imagemap"
+          >
+          <area
+            shape="poly"
+            tal:repeat="item view/area_items"
+            tal:attributes="
+              coords item/coords;
+              href item/url;
+              id item/id;
+              title item/title;
+            "
             />
-          <div id="map_overlay" class="map_absolute"></div>
-      </div>
+        </map>
+
+        <div id="map_container">
+            <div id="map_background_image" class="map_absolute" style="display: none;"></div>
+            <div id="map_hilight_image" class="map_absolute" style="display: none;"></div>
+            <img
+              alt=""
+              class="map_preload map_absolute"
+              id="map_kartta_image"
+              name="map_kartta_image"
+              src="kartta_kuvat/transparent.gif"
+              style="display: none;"
+              tal:attributes="src view/transparent_gif"
+              usemap="#map_imagemap"
+              />
+            <div id="map_overlay" class="map_absolute"></div>
+        </div>
+      </tal:block>
+
+      <tal:block tal:condition="not view/is_ie">
+        <ul>
+          <li tal:repeat="item view/area_items">
+            <a
+              tal:attributes="
+                href item/url;
+                title item/title;
+              "
+              tal:content="item/title"
+              />
+          </li>
+        </ul>
+      </tal:block>
 
     </dd>
 

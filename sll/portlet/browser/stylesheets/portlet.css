@@ -6,15 +6,17 @@
     position: absolute;
     top: 0px;
     left: 0px;
-        width:141px;
-        height:200px;
+    width:141px;
+    /*height:200px;*/
+    height: 190px;
 }
 #map_container {
     position: relative;
-        width:141px;
-        height:200px;
-        padding:0px;
-        margin:0px;
+    width:141px;
+    /*height:200px;*/
+    height: 190px;
+    padding:0px;
+    margin:0px;
 }
 #map_container img {
     border: 0px;

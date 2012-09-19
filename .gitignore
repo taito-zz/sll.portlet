@@ -5,6 +5,6 @@
 *~
 .DS_Store
 .long-description.html
+build
 dist
 setup.cfg
-sll/portlet/docs/_build/*

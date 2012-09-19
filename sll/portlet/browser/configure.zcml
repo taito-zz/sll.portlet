@@ -1,18 +1,18 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="sll.portlet"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="sll.portlet">
+    xmlns="http://namespaces.zope.org/zope">
 
   <browser:resourceDirectory
-    name="sll.portlet.images"
     directory="images"
     layer=".interfaces.ISllPortletLayer"
+    name="sll.portlet.images"
     />
 
   <browser:resourceDirectory
-    name="sll.portlet.stylesheets"
     directory="stylesheets"
     layer=".interfaces.ISllPortletLayer"
+    name="sll.portlet.stylesheets"
     />
 
 </configure>

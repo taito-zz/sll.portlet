@@ -1,4 +1,3 @@
-sll/portlet/docs/_build/*
 *.egg-info
 *.mo
 *.pyc
@@ -8,3 +7,4 @@ sll/portlet/docs/_build/*
 .long-description.html
 dist
 setup.cfg
+sll/portlet/docs/_build/*

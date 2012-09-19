@@ -2,9 +2,9 @@ from hexagonit.testing.browser import Browser
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from plone.testing import layered
+from sll.portlet.config import AREAS
 from sll.portlet.tests.base import FUNCTIONAL_TESTING
 from zope.testing import renormalizing
-from sll.portlet.config import AREAS
 
 import doctest
 import manuel.codeblock
@@ -12,7 +12,7 @@ import manuel.doctest
 import manuel.testing
 import re
 import transaction
-import unittest2 as unittest
+import unittest
 
 FLAGS = doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS  # | doctest.REPORT_NDIFF | doctest.REPORT_ONLY_FIRST_FAILURE
 

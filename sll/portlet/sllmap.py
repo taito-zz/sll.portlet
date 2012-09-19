@@ -17,8 +17,7 @@ class ISLLMapPortlet(IPortletDataProvider):
     name = TextLine(
         title=_(u"Name of Portlet"),
         default=u"",
-        required=False,
-    )
+        required=False)
 
 
 class Assignment(base.Assignment):
@@ -136,7 +135,6 @@ class Renderer(base.Renderer):
 
     @property
     def transparent_gif(self):
-        # return '{0}/++resource++sll.portlet.images/transparent.gif'.format(self.portal_url)
         return '{}/++resource++sll.portlet.images/transparent.png'.format(self.portal_url)
 
     def title(self):

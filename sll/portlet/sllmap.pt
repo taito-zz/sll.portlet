@@ -1,11 +1,8 @@
 <tal:block
   condition="view/available"
-  i18n:domain="sll.portlet"
-  >
+  i18n:domain="sll.portlet">
 
-  <dl
-    class="portlet portletSLLMap"
-    >
+  <dl class="portlet portletSLLMap">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>

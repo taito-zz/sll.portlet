@@ -14,7 +14,7 @@ setup(
         "Framework :: Plone :: 4.2",
         "Framework :: Plone :: 4.3",
         "Programming Language :: Python",
-    ],
+        "Programming Language :: Python :: 2.7"],
     keywords='',
     author='Taito Horiuchi',
     author_email='taito.horiuchi@abita.fi',
@@ -29,12 +29,10 @@ setup(
         'plone.app.portlets',
         'plone.browserlayer',
         'setuptools',
-        'zope.i18nmessageid',
-    ],
+        'zope.i18nmessageid'],
     entry_points="""
     # -*- Entry points: -*-
 
     [z3c.autoinclude.plugin]
     target = plone
-    """,
-)
+    """)

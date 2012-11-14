@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='sll.portlet',
-    version='0.2',
+    version='0.3',
     description="Portlets for SLL Site.",
     long_description=open("README.rst").read(),
     # Get more strings from
@@ -12,13 +12,12 @@ setup(
     classifiers=[
         "Framework :: Plone",
         "Framework :: Plone :: 4.2",
-        "Framework :: Plone :: 4.3",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7"],
     keywords='',
     author='Taito Horiuchi',
     author_email='taito.horiuchi@abita.fi',
-    url='http://sll.fi/',
+    url='http://www.sll.fi/',
     license='None-free',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['sll'],
@@ -28,8 +27,7 @@ setup(
         'hexagonit.testing',
         'plone.app.portlets',
         'plone.browserlayer',
-        'setuptools',
-        'zope.i18nmessageid'],
+        'setuptools'],
     entry_points="""
     # -*- Entry points: -*-
 

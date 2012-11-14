@@ -3,5 +3,5 @@
   <layer
     interface="sll.portlet.browser.interfaces.ISllPortletLayer"
     name="sll.portlet"
-      />
+    />
 </layers>

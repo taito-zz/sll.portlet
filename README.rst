@@ -7,7 +7,7 @@ sll.portlet provides map portlet to SLL site.
 Change log
 ----------
 
-0.4 (2013-05-xx)
+0.4 (2013-05-10)
 ================
 
 - Integrated Travis CI. [taito]

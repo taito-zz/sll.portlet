@@ -105,3 +105,8 @@ class TestRenderer(IntegrationTestCase):
                 'url': 'URL/lappi',
             }
         )
+
+    def test_is_ie(self):
+        instance = self.createInstance()
+        instance.request = {'HTTP_USER_AGENT': ['MSIE']}
+        self.assertTrue(instance.is_ie())

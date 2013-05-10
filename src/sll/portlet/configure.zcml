@@ -1,11 +1,8 @@
 <configure
   i18n_domain="sll.portlet"
-  xmlns:five="http://namespaces.zope.org/five"
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
   xmlns:plone="http://namespaces.plone.org/plone"
   xmlns="http://namespaces.zope.org/zope">
-
-  <includeDependencies package="." />
 
   <genericsetup:registerProfile
     description="Installs the sll.portlet package"

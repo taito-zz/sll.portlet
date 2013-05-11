@@ -4,8 +4,13 @@ sll.portlet
 
 sll.portlet provides map portlet to SLL site.
 
-Change log
-----------
+Changelog
+---------
+
+0.4.1 (2013-05-11)
+==================
+
+- Fixed javascript. [taito]
 
 0.4 (2013-05-10)
 ================

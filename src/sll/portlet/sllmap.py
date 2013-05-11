@@ -49,61 +49,51 @@ class Renderer(base.Renderer):
         return True
 
     def script(self):
-        template = """<script language="javascript" type="text/javascript">
-    jQuery.noConflict();
-    jQuery(document).ready(
-        function(jq) {
-            var map_overlay = jq("#map_overlay");
-            map_overlay.hide();
-            map_overlay.addClass("loading");
-            map_overlay.fadeIn();
+        template = """<script type="text/javascript">
+    jq(function() {
+        var map_overlay = jq("#map_overlay");
+        map_overlay.hide();
+        map_overlay.addClass("loading");
+        map_overlay.fadeIn();
+        var bgmap = {};
 
-            var bgmap = {};
-            jq("#map_imagemap > area").each(
-                function() {
-                    var id = jq(this).attr("id");
-                    var offset = parseInt(jq(this).attr("id").split("_")[2], 10);
-                    offset = (15-offset)*141;
-                    var bgpos = String(offset) +"px 0px";
-                    bgmap[id] = bgpos;
-                }
-            );
+        jq("#map_imagemap > area").each(function() {
+            var id = jq(this).attr("id");
+            var offset = parseInt(jq(this).attr("id").split("_")[2], 10);
+            offset = (15-offset)*141;
+            var bgpos = String(offset) +"px 0px";
+            bgmap[id] = bgpos;
+        });
 
-            var map_kartta_image = jq("#map_kartta_image");
-            var map_hilight_image = jq("#map_hilight_image");
+        var map_kartta_image = jq("#map_kartta_image");
+        var map_hilight_image = jq("#map_hilight_image");
+        var preload = new Array('$spinner_gif', '$transparent_gif', '$kartta_img');
+        var img = document.createElement('img');
 
-            var preload = new Array('$spinner_gif', '$transparent_gif', '$kartta_img');
-            var img = document.createElement('img');
-            jq(img).bind(
-                'load', function() {
-                    if(preload[0]) {
-                        this.src = preload.shift();
-                    }  else {
-                    /* all images have been loaded */
-                        jq("#map_imagemap area").each(function() {
-                            this.onmouseover = function() {
-                                map_hilight_image.css("background-position", bgmap[jq(this).attr("id")]);
-                                map_hilight_image.fadeIn("fast");
-                            }
-                        this.onmouseout = function() {
-                            map_hilight_image.hide();
-                        }
+        jq(img).bind('load', function() {
+            if(preload[0]) {
+                this.src = preload.shift();
+            }  else {
+                /* all images have been loaded */
+                jq("#map_imagemap area").each(function() {
+                    this.onmouseover = function() {
+                        map_hilight_image.css("background-position", bgmap[jq(this).attr("id")]);
+                        map_hilight_image.fadeIn("fast");
                     }
-                );
+                    this.onmouseout = function() {
+                        map_hilight_image.hide();
+                    }
+                });
                 map_kartta_image.show();
-                map_overlay.fadeOut(
-                    "fast", function() {
-                        jq(this).removeClass("loading");
-                        jq("#map_background_image").fadeIn("fast");
-                    }
-                );
+                map_overlay.fadeOut("fast", function() {
+                    jq(this).removeClass("loading");
+                    jq("#map_background_image").fadeIn("fast");
+                });
                 jq("#map_background_image").css("background-image", "url($kartta_img)");
                 map_hilight_image.css("background-image", "url($kartta_img)");
             }
-        }
-    ).trigger('load');
-}
-);
+        }).trigger('load');
+    });
 </script>"""
         s = Template(template)
         items = {

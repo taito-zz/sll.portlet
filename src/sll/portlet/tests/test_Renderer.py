@@ -48,7 +48,7 @@ class TestRenderer(IntegrationTestCase):
         getMultiAdapter().portal_url.return_value = 'URL'
         self.assertEqual(
             instance.script().split('\n')[0],
-            '<script language="javascript" type="text/javascript">'
+            '<script type="text/javascript">'
         )
 
     @mock.patch('sll.portlet.sllmap.getMultiAdapter')
